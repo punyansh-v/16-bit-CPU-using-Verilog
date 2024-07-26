@@ -49,16 +49,51 @@ First bit (MSB) is `1`, next 2-bits are also expected to be `1` but it works fin
 
 Next 6-bits, 11th to 6th, determine the operation/computation to be performed. For specification of operations, please refer to explanation paragraph of `ALU`, written above.
 
-Next 3-bits, 5th to 3rd, determines the register to which the output value of `ALU` is to be stored. For bit 5,4 and 3 being `1`, the value is stored in A-Register, D-register and M-Register respectively. So,there can be 8-combinations, from nowhere to store, to store in all of the 3 registers.
+Next 3-bits, 5th to 3rd, determines the register to which the output value of `ALU` is to be stored. For bit 5,4 and 3 being `1`, the value is stored in A-Register, D-register and M-Register respectively. 
+
+So,there can be 8-combinations, from nowhere to store, to store in all of the 3 registers.
+
 `000` The value is stored nowhere.
+
 `001` In M-Reg.
+
 `010` In D-Reg.
+
 `011` In M and D-regs.
+
 `100` In A-Reg.
+
 `101` In A and M-Regs.
+
 `110` In A and D-Regs.
+
 `111` In A,D and M-Regs.
 
-Now the 3 LSBs, determine the jump condtion
+Now the 3 LSBs, determine the jump condtion for the program counter. Jump condition is based on `ALU output`, whether it meets the criteria or not. On jump condition, program counter breaks the sequence of instructions and jump to the instruction with the address valu in `A-register`.
+Thus there can be total 8 jump conditions, which are given as follows.
+
+`000` No jump
+
+`001` if out>0, jump
+
+`010` if out==0, jump
+
+`011` if out>=0, jump
+
+`100` if out<0, jump
+
+`101` if out!=0, jump
+
+`110` if out<=0, jump
+
+`111` unconditional jump.
+
+So, this was the whole syntax of C-instruction. Let's take an example, `1111000111010001`.
+
+1. The first 3-bits `111` shows that it is a C-instruction.
+2. Next bit `1` shows that the 2nd operand will be M-Reg.
+3. Next 6-bits `000111` shows that M-D will be computed.
+4. Next 3-bits `010` shows that output is stored in D-Reg.
+5. Last 3-bits `001` shows that if the output is positive, then the program computer will jump to address with A-register value, i.e. 2891.
 
 
